@@ -4,17 +4,25 @@
 {% include "header.html" %}
 
 <body>
+<form action="" method="post"> {% csrf_token %}
 
-    <form action="/" method="post"> {% csrf_token %}
-        <div id="file_upload" style="text-align: center;">
-            <h1>Select an image (JPG, JPEG, BMP, PNG):</h1>
-            <input type="file">
-        </div>
-        <br>
-        <div id="filter_select" style="text-align: center;">
-            <label for="filter_choice" style="font-size: 30px; "><strong>Pick a filter:</strong></label>
-            <select id="filter_choice">
-                <option value="" selected disabled hidden>Choose filter</option>
+    <tr>
+        <th><label for="id_imgFile">Imgfile:</label></th>
+        <td>
+            <ul class="errorlist">
+                <li>This field is required.</li>
+            </ul>
+            <input type="file" name="imgFile" required id="id_imgFile"></td>
+    </tr>
+    <tr>
+        <th>
+            <label for="id_filter">Filter:</label></th>
+        <td>
+            <ul class="errorlist">
+                <li>This field is required.</li>
+            </ul>
+            <select name="filter" id="id_filter">
+                <option value="" selected disabled hidden>Choose Filter</option>
                 <option value="gray">Gray</option>
                 <option value="sepia">Sepia</option>
                 <option value="Poster">Poster</option>
@@ -22,20 +30,10 @@
                 <option value="Edge">Edge</option>
                 <option value="Solar">Solar</option>
             </select>
-        </div>
-        <br>
-        <div id="apply" style="text-align: center;">
-            <input type="submit" value="Apply Filter" />
-        </div>
-    </form>
-    <br>
-    <div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
-        {% if image %}
-            {% load static %}
-            <img src="{% static image %}" alt="image with filter applied">
-            <p style="text-align: center">Success!</p>
-        {% endif %}
-    </div>
+        </td>
+    </tr>
+    <input type="submit" value="Apply Filter" />
+</form>
 
 </body>
 
