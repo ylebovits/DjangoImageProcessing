@@ -25,7 +25,11 @@
 
     <div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
         {% if image %}
-            <img width="100%;" src="{{ image }}" alt="image with filter applied">
+            <img height="100%;" src="{{ image }}" alt="image with filter applied">
+            <br>
+            <form method="GET" action="{{ image }}">
+                <button type="submit">Download</button>
+            </form>
         {% endif %}
     </div>
 
