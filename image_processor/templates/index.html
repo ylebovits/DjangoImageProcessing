@@ -4,37 +4,32 @@
 {% include "header.html" %}
 
 <body>
-<form action="" method="post"> {% csrf_token %}
 
-    <tr>
-        <th><label for="id_imgFile">Imgfile:</label></th>
-        <td>
-            <ul class="errorlist">
-                <li>This field is required.</li>
-            </ul>
-            <input type="file" name="imgFile" required id="id_imgFile"></td>
-    </tr>
-    <tr>
-        <th>
-            <label for="id_filter">Filter:</label></th>
-        <td>
-            <ul class="errorlist">
-                <li>This field is required.</li>
-            </ul>
-            <select name="filter" id="id_filter">
-                <option value="" selected disabled hidden>Choose Filter</option>
-                <option value="gray">Gray</option>
-                <option value="sepia">Sepia</option>
-                <option value="Poster">Poster</option>
-                <option value="Blur">Blur</option>
-                <option value="Edge">Edge</option>
-                <option value="Solar">Solar</option>
-            </select>
-        </td>
-    </tr>
-    <input type="submit" value="Apply Filter" />
-</form>
+    {# if an error occurs while uploading, let the user know #}
+    {% if errors %}
+        {% for field, errs in errors.items %}
+            {% for error in errs %}
+                <h1>{{ error }}</h1>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
 
+    <form method="POST" action="/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Select an image (JPG, JPEG, BMP, PNG):</h1> {{ form.imgFile }}
+        <h1>Select a filter: </h1> {{ form.filter }}
+        <br>
+        <br>
+        <button type="submit">Apply Filter</button>
+    </form>
+
+    <div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+        {% if image %}
+            {% load static %}
+            <img src="{% static image %}" alt="image with filter applied">
+            <p style="text-align: center">Success!</p>
+        {% endif %}
+    </div>
 </body>
 
 {%  include "footer.html" %}

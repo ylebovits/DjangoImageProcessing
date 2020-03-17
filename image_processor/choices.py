@@ -1,8 +1,9 @@
 FILTER_CHOICES = (
-    (1, "solar"),
-    (2, "edge"),
-    (3, "poster"),
-    (4, "blur"),
-    (5, "gray"),
-    (6, "sepia")
+    (1, "Solar"),
+    (2, "Edge"),
+    (3, "Poster"),
+    (4, "Blur"),
+    (5, "Gray"),
+    (6, "Sepia")
 )
+
