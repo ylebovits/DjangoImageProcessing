@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 from django.shortcuts import render
 from image_processor.forms import UploadForm
 from PIL import Image, ImageOps, ImageFilter
+import boto3
 
 
 # all steps of processing (upload, filter, display) are done on the home page
@@ -68,13 +69,20 @@ def process_image(file_name: str, img_filter: str):
     out_file_name = "-out.".join(file_name.split("."))
 
     img.save(out_file_name)
+    s3_upload(out_file_name)
     return out_file_name
 
 
+def s3_upload(file_name: str):
+    s3 = boto3.resource("s3")
 
-
-
-
+    try:
+        with open(file_name, "wb") as file_content:
+            s3.Bucket("ylcis4517project1").put_object(Key=file_name,
+                                                      Body=file_content)
+        return "success"
+    except Exception as e:
+        return e
 
 
 
