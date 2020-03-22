@@ -1,2 +1,4 @@
 /media/
 *.sqlite3
+/image_processor/awscredentials.py
+/.aws/
