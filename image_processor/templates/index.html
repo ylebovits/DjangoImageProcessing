@@ -23,13 +23,14 @@
         <button type="submit">Apply Filter</button>
     </form>
 
+    {# show processed image to the user and allow them to download it #}
     <div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
         {% if image %}
             <img height="100%;" src="{{ image }}" alt="image with filter applied">
             <br>
-            <form method="GET" action="{{ image }}">
+            <a download href="{{ image }}">
                 <button type="submit">Download</button>
-            </form>
+            </a>
         {% endif %}
     </div>
 

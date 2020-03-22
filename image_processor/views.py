@@ -6,6 +6,7 @@ from django.shortcuts import render
 from image_processor.forms import UploadForm
 from PIL import Image, ImageOps, ImageFilter
 
+
 # all steps of processing (upload, filter, display) are done on the home page
 def index(request):
     context = {"title": "Home", "form": UploadForm,
@@ -16,7 +17,12 @@ def index(request):
 
         if upload.is_valid():
             file = upload.cleaned_data["imgFile"]
-            tmp_imgPath = default_storage.save("tmp.bmp", ContentFile(file.read()))
+            ext = file.name.split(".")[1]
+
+            # TODO:
+            # modify this to read/write S3 rather than local disk
+
+            tmp_imgPath = default_storage.save(f'tmp.{ext}', ContentFile(file.read()))
             tmp_imgPath = os.path.join(settings.MEDIA_URL, tmp_imgPath)
             imgPath = process_image(tmp_imgPath, upload.cleaned_data["filter"])
             context["image"] = imgPath
